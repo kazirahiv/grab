@@ -1,0 +1,23 @@
+
+<form name="MyForm" method="POST" action="">{% csrf_token %}
+  <fieldset>
+    <legend>Download Youtube Videos:</legend>
+    Paste below:<br>
+    <input type="text" name="link"><br>	 
+    <input type="submit" value="Submit">
+</fieldset>
+</form> 
+
+
+{% if latest_downloads %}
+	<ul>
+	{% for download in latest_downloads %}
+		<li><a href="/grab/{{downlod.id}}/">{{ download.download_link }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p> No recent downloads are available.</p>
+{% endif %}
+
+
+
