@@ -7,6 +7,7 @@ from grab.link_gen import find
 # Create your views here.
 from django.http import HttpResponse 
 def index(request):
+	X = find()
 	latest_downloads = Download.objects.order_by('dw_date')[:5]
 	output = ','.join([q.download_text for q in latest_downloads])
 	downloaded_file_name = "None" 
@@ -17,9 +18,9 @@ def index(request):
 		os.system(generated)
 		downloaded = True
 		if downloaded:
-			temp = find('*.mkv', '/home/kazirahiv/yao')
-		downloaded_file_name = temp[0]
-		file_download_link =  temp[1]
+			downloaded_file_name = X.find_name('*.mkv', '/home/kazirahiv/yao')
+			file_download_link= X.find_link('*.mkv', '/home/kazirahiv/yao') 
+			
 	else:
 		downloaded = False
 	template = loader.get_template('grab/index.html')
