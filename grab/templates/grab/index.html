@@ -7,8 +7,12 @@
     <input type="submit" value="Submit">
 </fieldset>
 </form> 
-
-
+{%if downloaded %}
+	<p> Download Complete </p>
+	<a target="_blank" href="file://{{file_download_link}}">Download link</a>
+{% else %}
+	<p> No task given ! </p>
+{% endif %}
 {% if latest_downloads %}
 	<ul>
 	{% for download in latest_downloads %}
@@ -18,6 +22,9 @@
 {% else %}
 	<p> No recent downloads are available.</p>
 {% endif %}
+
+
+
 
 
 
