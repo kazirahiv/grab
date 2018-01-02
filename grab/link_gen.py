@@ -18,7 +18,13 @@ class find(object):
 				for fname2 in glob('*.mkv'):
 					link = os.path.join(root,fname2)
 					return link
-
+	def find_link_(self, pattern, path):
+		os.chdir(path)
+		for root, sudo, files in os.walk(path):
+			for fname in glob('*.mkv'): 
+				rename(fname, fname.replace(" ", ""))
+				for fname2 in glob('*.mkv'):
+					return fname2
 
 
 

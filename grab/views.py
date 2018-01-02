@@ -4,8 +4,10 @@ from django.shortcuts import render
 from  .models import Download
 from django.template import loader
 from grab.link_gen import find
-# Create your views here.
+from django.conf import settings
 from django.http import HttpResponse 
+# Create your views here.
+
 def index(request):
 	X = find()
 	latest_downloads = Download.objects.order_by('dw_date')[:5]
@@ -19,8 +21,8 @@ def index(request):
 		downloaded = True
 		if downloaded:
 			downloaded_file_name = X.find_name('*.mkv', '/home/kazirahiv/yao')
-			file_download_link= X.find_link('*.mkv', '/home/kazirahiv/yao') 
-			
+			file_download_link= X.find_link_('*.mkv', '/home/kazirahiv/yao') 
+
 	else:
 		downloaded = False
 	template = loader.get_template('grab/index.html')
@@ -28,3 +30,17 @@ def index(request):
 	return HttpResponse(template.render(contex, request))
 
 
+
+# path to the upload dir
+UPLOAD_DIR = '/home/kazirahiv/yao'
+
+
+def download(request, file_name):
+    file_path = os.path.join(UPLOAD_DIR, file_name)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/octet-stream")
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+            return response
+    else:
+        raise Http404

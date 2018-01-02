@@ -9,7 +9,8 @@
 </form> 
 {%if downloaded %}
 	<p> Download Complete </p>
-	<a target="_blank" href="file://{{file_download_link}}">Download link</a>
+	<a  href="{{file_download_link}}" download>Download link</a>
+	
 {% else %}
 	<p> No task given ! </p>
 {% endif %}
