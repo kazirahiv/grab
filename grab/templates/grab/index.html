@@ -5,24 +5,18 @@
     Paste below:<br>
     <input type="text" name="link"><br>	 
     <input type="submit" value="Submit">
+    <p>After submitting the link, Please wait while we're downloading it !</p>
 </fieldset>
 </form> 
-{%if downloaded %}
+{% if downloaded %}
 	<p> Download Complete </p>
-	<a  href="{{file_download_link}}" download>Download link</a>
+	<a  href="{{fname}}" download>Download link</a>
 	
 {% else %}
 	<p> No task given ! </p>
 {% endif %}
-{% if latest_downloads %}
-	<ul>
-	{% for download in latest_downloads %}
-		<li><a href="/grab/{{downlod.id}}/">{{ download.download_link }}</a></li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p> No recent downloads are available.</p>
-{% endif %}
+
+
 
 
 
