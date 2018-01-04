@@ -20,7 +20,10 @@ def index(request):
 	downloaded = "None"
 	fname = "None"
 	if request.method == "POST":
-		link = request.POST['link']	
+		#link = request.POST.get("link", link, "checked", checked)	
+		link = request.POST.get('link')
+		checked = request.POST.get('checked')
+			#link = request.POST['link'] 
 		generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link
 		video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
 		os.chdir(download_directory)

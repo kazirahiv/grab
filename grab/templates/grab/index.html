@@ -1,23 +1,47 @@
+<!DOCTYPE html>
+<html class="gr__getbootstrap_com" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
 
-<form name="MyForm" method="POST" action="">{% csrf_token %}
-  <fieldset>
-    <legend>Download Youtube Videos:</legend>
-    Paste below:<br>
-    <input type="text" name="link"><br>	 
-    <input type="submit" value="Submit">
-    <p>After submitting the link, Please wait while we're downloading it !</p>
-</fieldset>
-</form> 
-{% if downloaded %}
-	<p> Download Complete </p>
-	<a  href="{{fname}}" download>Download link</a>
-	
-{% else %}
-	<p> No task given ! </p>
-{% endif %}
+    <title>Grab! Download Youtube Videos</title>
 
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <!-- Custom styles for this template -->
+   
+    <link href="http://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
+  <style></style></head>
 
+  <body data-gr-c-s-loaded="true">
+
+    <div class="container">
+
+      <form class="form-signin" method="POST" action="">{% csrf_token %}
+        <h3 class="form-signin-heading"><b>Grab ! </b><br>Download Youtube Videos</h3>
+        <input class="form-control" placeholder="Video link here...." required="" autofocus="" name="link" type="text">
+      {%if downloaded %}
+         <h4> Download Complete !</h4>
+         <a href="{{fname}}" class="btn btn-success " role="button">Download Link</a>
+      {% else %}
+          <p> No task given ! </p>
+      {% endif %}
+        <div class="checkbox">
+          <label>
+            <input value="checked" name="checked" type="checkbox"> Convert it to mp3
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Download </button>
+      </form>
+
+    </div> <!-- /container -->
+  
+
+</body></html>
 
 
 
