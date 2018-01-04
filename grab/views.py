@@ -1,3 +1,4 @@
+import re
 import youtube_dl
 import os
 from glob import glob
@@ -24,16 +25,17 @@ def index(request):
 		video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
 		os.chdir(download_directory)
 		os.system(generated)
-		file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".webm", ".mp4")
+		file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".webm", ".mp4").replace("#", "")
 		print("File: ", file)
 		Xfile = Path(file)
 		os.chdir(download_directory)
 		pattern = video_name[:20]+"*"
 		for name in glob(pattern):
-			rename(name, name.replace(" ", ""))
+			re.sub(r'[^\w]', ' ', name)
+			rename(name, name.replace(" ", "").replace("#", ""))
 		if os.path.exists(file):
 			downloaded = True
-			fname = video_name.replace(" ", "")
+			fname = video_name.replace(" ", "").replace("#", "").replace(".webm", ".mp4")
 	else:
 		downloaded = False
 	template = loader.get_template('grab/index.html')
