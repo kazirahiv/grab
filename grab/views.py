@@ -19,26 +19,40 @@ def index(request):
 	file = "None"
 	downloaded = "None"
 	fname = "None"
-	if request.method == "POST":
-		#link = request.POST.get("link", link, "checked", checked)	
+	if request.method == "POST": 
 		link = request.POST.get('link')
-		checked = request.POST.get('checked')
-			#link = request.POST['link'] 
-		generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link
-		video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
-		os.chdir(download_directory)
-		os.system(generated)
-		file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".webm", ".mp4").replace("#", "")
-		print("File: ", file)
-		Xfile = Path(file)
-		os.chdir(download_directory)
-		pattern = video_name[:20]+"*"
-		for name in glob(pattern):
-			re.sub(r'[^\w]', ' ', name)
-			rename(name, name.replace(" ", "").replace("#", ""))
-		if os.path.exists(file):
-			downloaded = True
-			fname = video_name.replace(" ", "").replace("#", "").replace(".webm", ".mp4")
+		if request.POST.get('checked'):
+			generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link
+			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
+			os.chdir(download_directory)
+			os.system(generated)
+			file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".mp4", ".mp3").replace("#", "")
+			print("File: ", file)
+			Xfile = Path(file)
+			os.chdir(download_directory)
+			pattern = video_name[:20]+"*"
+			for name in glob(pattern):
+				re.sub(r'[^\w]', ' ', name)
+				rename(name, name.replace(" ", "").replace("#", ""))
+			if os.path.exists(file):
+				downloaded = True
+				fname = video_name.replace(" ", "").replace("#", "").replace(".mp4", ".mp3")
+		else:
+			generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link
+			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
+			os.chdir(download_directory)
+			os.system(generated)
+			file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".webm", ".mp4").replace("#", "")
+			print("File: ", file)
+			Xfile = Path(file)
+			os.chdir(download_directory)
+			pattern = video_name[:20]+"*"
+			for name in glob(pattern):
+				re.sub(r'[^\w]', ' ', name)
+				rename(name, name.replace(" ", "").replace("#", ""))
+			if os.path.exists(file):
+				downloaded = True
+				fname = video_name.replace(" ", "").replace("#", "").replace(".webm", ".mp4")
 	else:
 		downloaded = False
 	template = loader.get_template('grab/index.html')
