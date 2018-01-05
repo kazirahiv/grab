@@ -26,7 +26,7 @@ def index(request):
 			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
 			os.chdir(download_directory)
 			os.system(generated)
-			file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".mp4", ".mp3").replace("#", "")
+			file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".mp4", ".mp3").replace("#", "").replace(".webm", ".mp3")
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
@@ -36,7 +36,7 @@ def index(request):
 				rename(name, name.replace(" ", "").replace("#", ""))
 			if os.path.exists(file):
 				downloaded = True
-				fname = video_name.replace(" ", "").replace("#", "").replace(".mp4", ".mp3")
+				fname = video_name.replace(" ", "").replace("#", "").replace(".mp4", ".mp3").replace(".webm", ".mp3")
 		else:
 			generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link
 			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
