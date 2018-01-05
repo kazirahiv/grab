@@ -21,13 +21,13 @@
     <div class="container" >
 
       <form class="form-signin" method="POST" action="">{% csrf_token %}
-        <h3 style="color: #fff" class="form-signin-heading"><b style="color: #fff">Grab !<i class="em em-the_horns"></i> </b><br>Download Youtube Videos</h3>
+        <h3 style="color: #fff" class="form-signin-heading"><b style="color: #fff">Grab !<i class="em em-anchor"></i></b><br>Download Youtube Videos</h3>
         <input class="form-control" placeholder="Video link here...." required="" autofocus="" name="link" type="text">
       {%if downloaded %}
          <h4 style="color: #fff"> Download Complete !</h4>
          <a href="{{fname}}" class="btn btn-success " role="button">Download Link</a>
       {% else %}
-          <p style="color: #fff">After submission, please wait until the page has finished loading <i class="em em-sunglasses"></i></p>
+          <p style="color: #fff"><br>After submission, please wait until the page has finished loading <i class="em em-sunglasses"></i></p>
       {% endif %}
         <div class="checkbox" style="color: #fff">
           <label>
@@ -36,9 +36,14 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Download </button>
       </form>
-
     </div> <!-- /container -->
-</body></html>
+</body>
+ <footer class="form-signin-heading" style="text-align: center">
+  <p>Created by: Kazi Rahiv</p>
+  <p>Bug Report: <a href="mailto:rahivjobs@gmail.com">
+  rahivjobs@gmail.com</a>.</p>
+</footer> 
+</html>
 
 
 
