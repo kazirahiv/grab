@@ -11,25 +11,25 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <!-- Custom styles for this template -->
    
     <link href="http://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
   <style></style></head>
 
-  <body data-gr-c-s-loaded="true">
+  <body data-gr-c-s-loaded="true" style="background-color: #444">
     <div class="container" >
 
       <form class="form-signin" method="POST" action="">{% csrf_token %}
-        <h3 class="form-signin-heading"><b>Grab ! </b><br>Download Youtube Videos</h3>
+        <h3 style="color: #fff" class="form-signin-heading"><b style="color: #fff">Grab !<i class="em em-anchor"></i></b><br>Download Youtube Videos</h3>
         <input class="form-control" placeholder="Video link here...." required="" autofocus="" name="link" type="text">
       {%if downloaded %}
-         <h4> Download Complete !</h4>
+         <h4 style="color: #fff"> Download Complete !</h4>
          <a href="{{fname}}" class="btn btn-success " role="button">Download Link</a>
       {% else %}
-          <p> No task given ! </p>
+          <p style="color: #fff">After submission, please wait until the page has finished loading <i class="em em-sunglasses"></i></p>
       {% endif %}
-        <div class="checkbox">
+        <div class="checkbox" style="color: #fff">
           <label>
             <input value="checked" name="checked" type="checkbox"> Convert it to mp3
           </label>
@@ -38,8 +38,6 @@
       </form>
 
     </div> <!-- /container -->
-  
-
 </body></html>
 
 
