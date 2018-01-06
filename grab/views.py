@@ -9,6 +9,7 @@ from  .models import Download
 from django.template import loader
 from django.conf import settings
 from django.http import HttpResponse 
+import time
 # Create your views here.
 # path to the download dir
 download_directory = '/home/kazirahiv/'
@@ -22,8 +23,11 @@ def index(request):
 	if request.method == "POST": 
 		link = request.POST.get('link')
 		if request.POST.get('checked'):
-			generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link
+			b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "")
+			generated = re.sub("&t.*", "", b_generated)
+			print(generated)
 			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
+			print("video_name", video_name)
 			os.chdir(download_directory)
 			os.system(generated)
 			file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".mp4", ".mp3").replace("#", "").replace(".webm", ".mp3")
@@ -31,6 +35,8 @@ def index(request):
 			Xfile = Path(file)
 			os.chdir(download_directory)
 			pattern = video_name[:20]+"*"
+			print(pattern)
+			time.sleep(4)
 			for name in glob(pattern):
 				re.sub(r'[^\w]', ' ', name)
 				rename(name, name.replace(" ", "").replace("#", ""))
@@ -46,7 +52,8 @@ def index(request):
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
-			pattern = video_name[:20]+"*"
+			pattern = video_name[:30]+"*"
+			print(pattern)
 			for name in glob(pattern):
 				re.sub(r'[^\w]', ' ', name)
 				rename(name, name.replace(" ", "").replace("#", ""))
