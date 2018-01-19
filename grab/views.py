@@ -10,6 +10,8 @@ from django.template import loader
 from django.conf import settings
 from django.http import HttpResponse 
 import time
+from .search_module import video_search
+from django.template.defaulttags import register
 # Create your views here.
 # path to the download dir
 download_directory = '/home/kazirahiv/'
@@ -52,7 +54,7 @@ def index(request):
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
-			pattern = video_name[:30]+"*"
+			pattern = video_name[:20]+"*"
 			print(pattern)
 			for name in glob(pattern):
 				re.sub(r'[^\w]', ' ', name)
@@ -78,3 +80,52 @@ def download(request, file_name):
             return response
     else:
         raise Http404
+
+
+def grabStore(request):
+	search_result = None
+	gotIt= None
+	if request.method == "GET":
+		template = loader.get_template('grab/grabStore.html')
+		gotIt = False
+		contex = {'gotIt':gotIt}
+		return HttpResponse(template.render(contex, request))
+
+	if request.method == "POST":
+		songName = request.POST.get('song_name')
+		gotIt = True
+		search_result = video_search(songName)
+		if request.POST.get('sucks'):
+			print("True-", request.POST.get('value'))
+		template = loader.get_template('grab/grabStore.html')
+		contex = {'search_result':search_result, 'gotIt':gotIt}
+		return HttpResponse(template.render(contex, request))
+		if request.POST.get('sucks'):
+			print("True-")
+
+def grabStoreDownload(request, id):
+	print(id)
+	link = "https://www.youtube.com/watch?v="+id
+	b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "")
+	generated = re.sub("&t.*", "", b_generated)
+	print(generated)
+	video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
+	print("video_name", video_name)
+	os.chdir(download_directory)
+	os.system(generated)
+	file = (download_directory+video_name).replace(" ", "").replace("\n", "").replace(".mp4", ".mp3").replace("#", "").replace(".webm", ".mp3")
+	print("File: ", file)
+	Xfile = Path(file)
+	os.chdir(download_directory)
+	pattern = video_name[:20]+"*"
+	print(pattern)
+	time.sleep(4)
+	for name in glob(pattern):
+		re.sub(r'[^\w]', ' ', name)
+		rename(name, name.replace(" ", "").replace("#", ""))
+		if os.path.exists(file):
+			downloaded = True
+			fname = video_name.replace(" ", "").replace("#", "").replace(".mp4", ".mp3").replace(".webm", ".mp3")	
+			template = loader.get_template('grab/grabStore.html')
+			contex = {'downloaded':downloaded, 'fname':fname, }
+			return HttpResponse(template.render(contex, request))		
