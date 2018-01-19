@@ -12,9 +12,11 @@ from django.http import HttpResponse
 import time
 from .search_module import video_search
 from django.template.defaulttags import register
+from django.shortcuts import redirect
 # Create your views here.
 # path to the download dir
 download_directory = '/home/kazirahiv/'
+
 
 def index(request):
 	latest_downloads = Download.objects.order_by('dw_date')[:5]
@@ -129,3 +131,6 @@ def grabStoreDownload(request, id):
 			template = loader.get_template('grab/grabStore.html')
 			contex = {'downloaded':downloaded, 'fname':fname, }
 			return HttpResponse(template.render(contex, request))		
+
+def home(request):
+	return redirect('/grab')
