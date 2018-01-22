@@ -10,4 +10,4 @@ rsa==3.4.2
 six==1.11.0
 uritemplate==3.0.0
 youtube-dl==2017.12.28
-
+gunicorn==19.7.1
