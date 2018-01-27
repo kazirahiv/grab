@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['kazirahiv.pythonanywhere.com', '127.0.0.1', 'thegrab.herokuapp
 # Application definition
 
 INSTALLED_APPS = [
+    'blogap.apps.BlogapConfig',
     'grab.apps.GrabConfig',    
     'django.contrib.admin',
     'django.contrib.auth',
