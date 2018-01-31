@@ -38,7 +38,7 @@ def index(request):
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
-			pattern = video_name[:20]+"*"
+			pattern = video_name[:15]+"*"
 			print(pattern)
 			time.sleep(4)
 			for name in glob(pattern):
