@@ -38,7 +38,7 @@ def index(request):
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
-			pattern = video_name[:15]+"*"
+			pattern = video_name[:10]+"*"
 			print(pattern)
 			time.sleep(4)
 			for name in glob(pattern):
@@ -56,7 +56,7 @@ def index(request):
 			print("File: ", file)
 			Xfile = Path(file)
 			os.chdir(download_directory)
-			pattern = video_name[:20]+"*"
+			pattern = video_name[:10]+"*"
 			print(pattern)
 			for name in glob(pattern):
 				re.sub(r'[^\w]', ' ', name)
@@ -119,7 +119,7 @@ def grabStoreDownload(request, id):
 	print("File: ", file)
 	Xfile = Path(file)
 	os.chdir(download_directory)
-	pattern = video_name[:20]+"*"
+	pattern = video_name[:10]+"*"
 	print(pattern)
 	time.sleep(4)
 	for name in glob(pattern):
