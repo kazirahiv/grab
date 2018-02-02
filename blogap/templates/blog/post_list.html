@@ -7,7 +7,9 @@
         	<p>Published: {{post.published_date}}</p>
         </div>
     <p>{{post.text | linebreaksbr}}</p>
-    <img src="{{ STATIC_URL }}{{ post.image.url }}" />
+    {% if post.image %}
+        <img src="{{ STATIC_URL }}{{ post.image.url }}" />
+    {% endif %}
 {%endfor%}
 {% endblock %}
 

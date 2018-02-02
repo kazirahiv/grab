@@ -9,9 +9,12 @@
             </div>
         {% endif %}
         <p>{{ post.text|linebreaksbr }}</p>
+        {% if post.image %}
         <img src="{{ STATIC_URL }}{{ post.image.url }}" />
+        {% endif %}
     </div>
 {% endblock %}
+
 
 
 
