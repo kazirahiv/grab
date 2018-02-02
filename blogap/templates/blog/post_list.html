@@ -3,9 +3,9 @@
 {% for post in posts reversed %}
         <div class="post">
         	<div class="date">
+        	<h1><a href="{% url 'post_detail' pk=post.pk %}">{{post.titles}}</a></h1>
         	<p>Published: {{post.published_date}}</p>
         </div>
-    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{post.titles}}</a></h1>
     <p>{{post.text | linebreaksbr}}</p>
     <img src="{{ STATIC_URL }}{{ post.image.url }}" />
 {%endfor%}
