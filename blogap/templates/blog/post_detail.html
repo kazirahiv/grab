@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block content %}
     <div class="post">
         {% if post.published_date %}
@@ -9,5 +9,9 @@
         {% endif %}
         <h1>{{ post.titles }}</h1>
         <p>{{ post.text|linebreaksbr }}</p>
+        <img src="{{ STATIC_URL }}{{ post.image.url }}" />
     </div>
 {% endblock %}
+
+
+
