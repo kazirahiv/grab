@@ -6,6 +6,7 @@
                 <h1>{{ post.titles }}</h1>
             <div class="date">
                 {{ post.published_date }}
+                <p>Author- {{ post.author }}</p>
             </div>
         {% endif %}
         <p>{{ post.text|linebreaksbr }}</p>

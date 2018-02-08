@@ -1,5 +1,5 @@
 *.swp
-
+db.sqlite3
 .models.p.swp
 __pycache__/
 __pycache__
