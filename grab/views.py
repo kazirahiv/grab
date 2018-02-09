@@ -16,7 +16,7 @@ from django.shortcuts import redirect
 # Create your views here.
 # path to the download dir
 download_directory = '/home/kazirahiv/'
-
+aria_comb = " --external-downloader aria2c --external-downloader-args '-x 16 -s 16 -k 1M --file-allocation=none' "
 
 def index(request):
 	latest_downloads = Download.objects.order_by('dw_date')[:5]
@@ -27,7 +27,7 @@ def index(request):
 	if request.method == "POST": 
 		link = request.POST.get('link')
 		if request.POST.get('checked'):
-			b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "")
+			b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "") + aria_comb
 			generated = re.sub("&t.*", "", b_generated)
 			print(generated)
 			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
@@ -48,7 +48,7 @@ def index(request):
 				downloaded = True
 				fname = video_name.replace(" ", "").replace("#", "").replace(".mp4", ".mp3").replace(".webm", ".mp3")
 		else:
-			generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link
+			generated = "youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output \"%(title)s.%(ext)s\" "+ link + aria_comb
 			video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
 			os.chdir(download_directory)
 			os.system(generated)
@@ -108,7 +108,7 @@ def grabStore(request):
 def grabStoreDownload(request, id):
 	print(id)
 	link = "https://www.youtube.com/watch?v="+id
-	b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "")
+	b_generated = "youtube-dl --extract-audio --audio-format mp3 --output \"%(title)s.%(ext)s\" "+ link.replace("&t*", "") + aria_comb
 	generated = re.sub("&t.*", "", b_generated)
 	print(generated)
 	video_name = os.popen("youtube-dl --get-filename --output \"%(title)s.%(ext)s\" "+ link).read()
