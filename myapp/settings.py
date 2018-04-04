@@ -25,13 +25,12 @@ SECRET_KEY = '^-we7168gln1#1xtf^+uz2b8p2)-4m%c^k7_erof6fp1g8acn8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kazirahiv.pythonanywhere.com', '127.0.0.1', 'thegrab.herokuapp.com']
+ALLOWED_HOSTS = ['kazirahiv.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'blogap.apps.BlogapConfig',
     'grab.apps.GrabConfig',    
     'django.contrib.admin',
     'django.contrib.auth',

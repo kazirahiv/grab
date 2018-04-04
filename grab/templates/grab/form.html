@@ -1,0 +1,21 @@
+{% extends 'grab/index.html' %}
+{% load staticfiles %}
+{% block content %}
+<form class="form-signin" method="POST" action="">{% csrf_token %}
+  <h3 style="color: #fff" class="form-signin-heading"><b style="color: #fff">Grab !<i class="em em-anchor"></i></b><br>Download Youtube Videos</h3>
+  <input class="form-control" placeholder="Video link here...." required="" autofocus="" name="link" type="text">
+  {%if downloaded %}
+  <h4 style="color: #fff"> Download Complete !</h4>
+  <a href="{{fname}}" class="btn btn-success " role="button">Download Link</a>
+  {% else %}
+  <p style="color: #fff"><br>After submission, please wait until the page has finished loading <i class="em em-sunglasses"></i></p>
+  {% endif %}
+  <div class="checkbox" style="color: #fff">
+    <label>
+      <input value="checked" name="checked" type="checkbox"> Convert it to mp3
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Download </button>
+  <p style="color: #fff"><br>Or download desired songs from <a href="../grabStore">GrabStore</a></p>
+</form>
+{% endblock %}

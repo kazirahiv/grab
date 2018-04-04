@@ -5,7 +5,6 @@ from glob import glob
 from os import rename
 from pathlib import Path
 from django.shortcuts import render
-from  .models import Download
 from django.template import loader
 from django.conf import settings
 from django.http import HttpResponse 
@@ -19,8 +18,6 @@ download_directory = '/home/kazirahiv/'
 
 
 def index(request):
-	latest_downloads = Download.objects.order_by('dw_date')[:5]
-	output = ','.join([q.download_text for q in latest_downloads])
 	file = "None"
 	downloaded = "None"
 	fname = "None"
@@ -66,8 +63,8 @@ def index(request):
 				fname = video_name.replace(" ", "").replace("#", "").replace(".webm", ".mp4")
 	else:
 		downloaded = False
-	template = loader.get_template('grab/index.html')
-	contex = {'latest_downloads': latest_downloads, 'downloaded':downloaded, 'fname':fname}
+	template = loader.get_template('grab/form.html')
+	contex = {'downloaded':downloaded, 'fname':fname}
 	return HttpResponse(template.render(contex, request))
 
 
