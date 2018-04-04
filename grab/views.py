@@ -129,5 +129,4 @@ def grabStoreDownload(request, id):
 			contex = {'downloaded':downloaded, 'fname':fname, }
 			return HttpResponse(template.render(contex, request))		
 
-def home(request):
-	return redirect('/grab')
+
